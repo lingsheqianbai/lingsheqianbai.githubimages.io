@@ -167,13 +167,13 @@
 <body>
     <nav>
         <ul class="links">
-            <li><a href="index.html" data-label="主页"></a></li>
-            <li><a href="moments.html" data-label="动态"></a></li>
-            <li><a href="projects.html" data-label="项目"></a></li>
-            <li><a href="works.html" data-label="作品集"></a></li>
-            <li><a href="posts.html" data-label="帖子"></a></li>
-            <li><a href="thanks.html" data-label="致谢"></a></li>
-            <li><a href="repo.html" data-label="仓库"></a></li>
+            <li><a href="https://lingsheqianbai.github.io/index.html" data-label="主页"></a></li>
+            <li><a href="https://lingsheqianbai.github.io/moments.html" data-label="动态"></a></li>
+            <li><a href="https://lingsheqianbai.github.io/projects.html" data-label="项目"></a></li>
+            <li><a href="https://lingsheqianbai.github.io/works.html" data-label="作品集"></a></li>
+            <li><a href="https://lingsheqianbai.github.io/posts.html" data-label="帖子"></a></li>
+            <li><a href="https://lingsheqianbai.github.io/thanks.html" data-label="致谢"></a></li>
+            <li><a href="https://lingsheqianbai.github.io/repo.html" data-label="仓库"></a></li>
         </ul>
     </nav>
 
@@ -237,12 +237,13 @@
                     document.getElementById('articleContainer').innerHTML = post.content;
                     document.getElementById('postLink').href = window.location.href;
                     document.getElementById('postLink').textContent = window.location.href;
+                    const MAIN = 'https://lingsheqianbai.github.io/';
                     const backLink = document.getElementById('backLink');
                     if (post.id && post.id.startsWith('changelog-')) {
-                        backLink.href = 'repo.html';
+                        backLink.href = MAIN + 'repo.html';
                         backLink.textContent = '← 返回仓库';
                     } else {
-                        backLink.href = 'posts.html';
+                        backLink.href = MAIN + 'posts.html';
                         backLink.textContent = '← 返回帖子列表';
                     }
                 } else {
