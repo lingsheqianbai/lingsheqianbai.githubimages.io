@@ -65,6 +65,13 @@
         /* MAIN LAYOUT */
         main { background: none; font-size: 80%; }
         .left-col { padding: 5px; top: var(--nav-offset); width: var(--sidebar-width); position: fixed; left: var(--layout-gap); z-index: 950; }
+        /* 右侧目录 */
+        .toc-col { position: fixed; right: var(--layout-gap); top: var(--nav-offset); width: 200px; z-index: 940; }
+        .toc-card { background: #fff; border: 1px solid var(--border-color); border-radius: 0 0 10px 10px; padding: 12px; font-size: 12px; }
+        .toc-card .toc-title { font-weight: bold; font-size: 13px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #ddd; }
+        .toc-card a { display: block; padding: 3px 6px; color: var(--text-dark); text-decoration: none; border-radius: 4px; margin: 2px 0; }
+        .toc-card a:hover, .toc-card a.active { background: var(--pink-light); color: var(--pink-dark); }
+        @media (max-width: 1200px) { .toc-col { display: none; } }
         .left-col .profile-title {
             position: fixed; left: var(--layout-gap); top: 48px;
             background: var(--pink); width: var(--sidebar-width);
@@ -167,13 +174,13 @@
 <body>
     <nav>
         <ul class="links">
-            <li><a href="https://lingsheqianbai.github.io/index.html" data-label="主页"></a></li>
-            <li><a href="https://lingsheqianbai.github.io/moments.html" data-label="动态"></a></li>
-            <li><a href="https://lingsheqianbai.github.io/projects.html" data-label="项目"></a></li>
-            <li><a href="https://lingsheqianbai.github.io/works.html" data-label="作品集"></a></li>
-            <li><a href="https://lingsheqianbai.github.io/posts.html" data-label="帖子"></a></li>
-            <li><a href="https://lingsheqianbai.github.io/thanks.html" data-label="致谢"></a></li>
-            <li><a href="https://lingsheqianbai.github.io/repo.html" data-label="仓库"></a></li>
+            <li><a href="index.html" data-label="主页"></a></li>
+            <li><a href="moments.html" data-label="动态"></a></li>
+            <li><a href="projects.html" data-label="项目"></a></li>
+            <li><a href="works.html" data-label="作品集"></a></li>
+            <li><a href="posts.html" data-label="帖子"></a></li>
+            <li><a href="thanks.html" data-label="致谢"></a></li>
+            <li><a href="repo.html" data-label="仓库"></a></li>
         </ul>
     </nav>
 
@@ -185,6 +192,13 @@
                 <div class="profile-note">阅读帖子详情。</div>
                 <a href="posts.html" id="backLink" class="side-link">← 返回帖子列表</a>
                 <a href="javascript:history.back()" class="side-link">← 返回上一页</a>
+            </div>
+        </div>
+
+        <div class="toc-col">
+            <div class="toc-card">
+                <div class="toc-title">📑 目录</div>
+                <div id="tocList"></div>
             </div>
         </div>
 
@@ -236,15 +250,28 @@
                     document.getElementById('postTitle').textContent = post.title;
                     document.getElementById('postMeta').innerHTML = `<span>📅 发布时间：${post.date}</span>`;
                     document.getElementById('articleContainer').innerHTML = post.content;
+                    // 构建目录
+                    setTimeout(() => {
+                        const h2s = document.querySelectorAll('.article-container h2');
+                        const toc = document.getElementById('tocList');
+                        if (h2s.length && toc) {
+                            let html = '';
+                            h2s.forEach((h, i) => {
+                                const id = 'sec-' + i;
+                                h.id = id;
+                                html += `<a href="#${id}" onclick="document.getElementById('${id}').scrollIntoView({behavior:'smooth'});return false">${h.textContent}</a>`;
+                            });
+                            toc.innerHTML = html;
+                        }
+                    }, 100);
                     document.getElementById('postLink').href = window.location.href;
                     document.getElementById('postLink').textContent = window.location.href;
-                    const MAIN = 'https://lingsheqianbai.github.io/';
                     const backLink = document.getElementById('backLink');
                     if (post.id && post.id.startsWith('changelog-')) {
-                        backLink.href = MAIN + 'repo.html';
+                        backLink.href = 'repo.html';
                         backLink.textContent = '← 返回仓库';
                     } else {
-                        backLink.href = MAIN + 'posts.html';
+                        backLink.href = 'posts.html';
                         backLink.textContent = '← 返回帖子列表';
                     }
                 } else {
