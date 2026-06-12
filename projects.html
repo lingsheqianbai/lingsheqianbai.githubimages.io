@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目 - 千白分享</title>
+    <style>
+        /* ========== 基础风格（保持不变） ========== */
+        :root {
+            --sidebar-width: 260px;
+            --nav-offset: 60px;
+            --border-color: #000;
+            --bg-card: #fff;
+            --bg-sidebar: #fff;
+            --text-dark: #2a1a2e;
+            --text-mid: #5a3e4b;
+            --text-light: #bba3ad;
+            --shadow: 4px 4px 0 rgba(0,0,0,0.1);
+            --pink: #f9bddd;
+            --pink-dark: #c44569;
+            --pink-light: #ffcfe2;
+        }
+
+        @font-face {
+            font-family: 'ZQKNNY';
+            src: url('ZQKNNY-Medium-2.woff2') format('woff2');
+            font-weight: 500; font-style: normal; font-display: swap;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "MS PGothic", "Unifont", "SimSun", "Microsoft YaHei", "ZQKNNY", sans-serif;
+            background: url('images/beijin1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding-top: var(--nav-offset);
+            color: var(--text-dark);
+        }
+
+        nav {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            background: #fff;
+            border-bottom: 2px solid #000;
+        }
+        nav .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            padding: 8px 16px;
+            margin: 0;
+            gap: 12px;
+        }
+        nav .links li a {
+            display: inline-block;
+            padding: 8px 32px;
+            border-radius: 32px;
+            border: 1px solid #000;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+            transition: filter 0.2s;
+            cursor: pointer;
+        }
+        nav .links li a:hover { filter: brightness(0.85); }
+
+        .left-col {
+            position: fixed;
+            left: 20px;
+            top: var(--nav-offset);
+            width: var(--sidebar-width);
+            z-index: 950;
+        }
+        .profile-card {
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .profile-avatar img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border-color);
+        }
+        .profile-name { font-size: 18px; font-weight: bold; text-align: center; }
+        .profile-signature { font-size: 11px; text-align: center; color: var(--text-mid); margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--border-color); }
+
+        .player {
+            margin: 16px 0 12px;
+            text-align: center;
+        }
+        .vinyl {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 35% 35%, #222, #111);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px #444, 0 0 0 6px #888;
+        }
+        .vinyl.playing {
+            animation: spin 5s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .vinyl-center-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.9);
+            object-fit: cover;
+            background: #fff;
+        }
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+        .player-controls button {
+            background: var(--pink-light);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .player-controls button:hover { background: var(--pink); }
+        .song-title {
+            font-size: 10px;
+            color: var(--text-mid);
+            text-align: center;
+            background: var(--bg-card);
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            display: inline-block;
+            max-width: 180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-info {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 12px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 12px;
+        }
+        .contact-info p { margin: 6px 0; }
+        .contact-info a { color: var(--pink-dark); text-decoration: none; }
+        .contact-info a:hover { text-decoration: underline; }
+
+        .right-col {
+            margin-left: calc(var(--sidebar-width) + 40px);
+            margin-right: 20px;
+            max-width: 1200px;
+        }
+        .page-header {
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .page-header h2 {
+            font-size: 24px;
+            display: inline-block;
+            background: var(--pink-light);
+            padding: 4px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+        }
+        .search-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .search-bar input {
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 13px;
+            width: 180px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .project-icon { font-size: 36px; margin-bottom: 12px; }
+        .project-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+        .project-desc { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+        .detail-view {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .back-btn {
+            background: var(--pink-light);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .back-btn:hover { background: var(--pink); }
+
+        .section-details {
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .section-details summary {
+            background: var(--pink-light);
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+        .section-details summary::-webkit-details-marker { display: none; }
+        .section-details summary::after {
+            content: '▼';
+            margin-left: auto;
+            transition: transform 0.2s;
+        }
+        .section-details[open] summary::after {
+            transform: rotate(180deg);
+        }
+        .section-content {
+            padding: 16px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* 模组统计样式 */
+        .stats-bar {
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            font-size: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+        .stats-item { display: flex; align-items: center; gap: 4px; }
+        .stats-number { font-weight: 600; }
+        .stats-complete { color: #2ecc71; }
+        .stats-incomplete { color: #f1c40f; }
+        .stats-pending { color: #3498db; }
+        .stats-unneeded { color: #9b59b6; }
+        .stats-todo { color: #ff8c00; }
+
+        .search-box { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .search-box input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            font-size: 13px;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .filter-header {
+            padding: 12px 16px;
+            background: var(--pink-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 500;
+        }
+        .filter-header .arrow { transition: transform .3s; }
+        .filter-header.collapsed .arrow { transform: rotate(-90deg); }
+        .filter-content {
+            padding: 16px;
+            transition: max-height .3s ease;
+            max-height: 800px;
+            overflow: hidden;
+        }
+        .filter-content.collapsed {
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .filter-group {
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 12px;
+        }
+        .filter-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .filter-group-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .filter-group-header .group-arrow { transition: transform .2s; font-size: 12px; }
+        .filter-group-header.collapsed .group-arrow { transform: rotate(-90deg); }
+        .filter-group-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            transition: max-height .2s ease;
+            max-height: 200px;
+            overflow: hidden;
+        }
+        .filter-group-options.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+        .filter-btn {
+            padding: 4px 12px;
+            border-radius: 30px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            color: #333;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .filter-btn.active {
+            background: var(--pink);
+            border-color: var(--border-color);
+            color: #fff;
+        }
+        .mod-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        .mod-table th, .mod-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .mod-table th {
+            background: var(--pink-light);
+            font-weight: bold;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 11px;
+            background: #eee;
+        }
+        .status-complete { background: #c8e6c9; color: #2e7d32; }
+        .status-incomplete { background: #ffecb3; color: #b26a00; }
+        .status-pending { background: #ffcdd2; color: #c62828; }
+        .status-unneeded { background: #e1bee7; color: #6a1b9a; }
+        .status-todo { background: #ffe0b2; color: #bf360c; }
+
+        .mod-id { font-size: 11px; color: #666; display: block; }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .pagination button, .pagination .page-number, .pagination .page-dots {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .pagination button:hover, .pagination .page-number:hover, .pagination .page-dots:hover {
+            background: var(--pink-light);
+        }
+        .pagination .page-number.active {
+            background: var(--pink);
+            color: #fff;
+            border-color: var(--pink-dark);
+        }
+        .pagination .page-dots { cursor: pointer; }
+        .empty-tip {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-mid);
+        }
+
+        @media (max-width: 800px) {
+            .left-col { display: none; }
+            .right-col { margin-left: 20px; }
+            .mod-table th, .mod-table td { font-size: 11px; padding: 4px; }
+        }
+        @media (max-width: 768px) {
+            nav .links li a { padding: 6px 20px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="links">
+            <li><a href="index.html" style="background-color: #FF4D4D;">主页</a></li>
+            <li><a href="moments.html" style="background-color: #FFA500;">动态</a></li>
+            <li><a href="projects.html" style="background-color: #FFD700;">项目</a></li>
+            <li><a href="works.html" style="background-color: #32CD32;">作品集</a></li>
+            <li><a href="posts.html" style="background-color: #00CED1;">帖子</a></li>
+            <li><a href="thanks.html" style="background-color: #1E90FF;">致谢</a></li>
+            <li><a href="repo.html" style="background-color: #9370DB;">仓库</a></li>
+        </ul>
+    </nav>
+
+    <div class="left-col">
+        <div class="profile-card">
+            <div class="profile-avatar"><img src="images/lingsheqianbai.jpg" alt="凌社千白"></div>
+            <div class="profile-name">凌社千白</div>
+            <div class="profile-signature">分享 · 记录 · 创造</div>
+            <div class="player">
+                <div class="vinyl" id="vinylDisc"><img src="images/yonri.jpg" alt="友利奈绪" class="vinyl-center-img"></div>
+                <div class="player-controls">
+                    <button id="prevBtn">⏮</button>
+                    <button id="playPauseBtn">▶️</button>
+                    <button id="nextBtn">⏭</button>
+                </div>
+                <div class="song-title" id="songTitle">Morning BGM</div>
+            </div>
+            <div class="contact-info">
+                <p>📺 B站: <a href="https://space.bilibili.com/498508670?spm_id_from=333.1007.0.0" target="_blank">凌社千白</a></p>
+                <p>🎵 抖音: <a href="https://www.douyin.com/user/self" target="_blank">凌社千白</a></p>
+                <p>📱 快手: <a href="https://www.kuaishou.com/profile/3xcatpzc2ejba82" target="_blank">凌社千白</a></p>
+            </div>
+            <button class="theme-toggle" id="themeToggle" style="display: none;">🌙 黑夜</button>
+        </div>
+    </div>
+
+    <div class="right-col">
+        <div class="page-header">
+            <h2>📂 项目展示</h2>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="搜索游戏...">
+                <span>🔍</span>
+            </div>
+        </div>
+
+        <!-- 游戏卡片列表 -->
+        <div id="gamesGridView">
+            <div class="projects-grid" id="gamesGrid">加载中...</div>
+        </div>
+
+        <!-- 游戏详情视图（初始隐藏） -->
+        <div id="gameDetailView" style="display: none;">
+            <div class="detail-view">
+                <button class="back-btn" id="backToGridBtn">← 返回游戏列表</button>
+                <div id="detailContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" preload="auto"></audio>
+
+    <script>
+        // ---------- 音乐播放器 ----------
+        const playlist = [
+            { title: "Morning BGM", url: "music/morning.mp3" },
+            { title: "Night BGM", url: "music/night.mp3" }
+        ];
+        let currentTrack = 0;
+        const audio = document.getElementById('audioPlayer');
+        const vinyl = document.getElementById('vinylDisc');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const songTitleSpan = document.getElementById('songTitle');
+
+        function loadTrack(index) {
+            const track = playlist[index % playlist.length];
+            audio.src = track.url;
+            songTitleSpan.textContent = track.title;
+            audio.load();
+            if (!audio.paused) {
+                audio.play().catch(()=>{});
+                vinyl.classList.add('playing');
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                playPauseBtn.textContent = '▶️';
+                vinyl.classList.remove('playing');
+            }
+        }
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => { vinyl.classList.add('playing'); playPauseBtn.textContent = '⏸️'; }).catch(()=>{});
+            } else {
+                audio.pause();
+                vinyl.classList.remove('playing');
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+        prevBtn.addEventListener('click', () => { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); });
+        nextBtn.addEventListener('click', () => { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); });
+        loadTrack(currentTrack);
+
+        // ---------- 辅助函数 ----------
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        window.toggleGroup = function(header) {
+            const options = header.nextElementSibling;
+            const arrow = header.querySelector('.group-arrow');
+            if (options.classList.contains('collapsed')) {
+                options.classList.remove('collapsed');
+                arrow.textContent = '▼';
+            } else {
+                options.classList.add('collapsed');
+                arrow.textContent = '▶';
+            }
+        };
+
+        // ---------- 分页组件（圆形按钮）----------
+        function renderPaginationWithDots(containerId, currentPage, totalPages, onPageChange) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.classList.add('pagination');
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+            let pages = [];
+            if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) pages.push(i);
+            } else {
+                pages.push(1);
+                if (currentPage > 3) pages.push('...');
+                let start = Math.max(2, currentPage - 1);
+                let end = Math.min(totalPages - 1, currentPage + 1);
+                if (currentPage <= 3) { start = 2; end = 4; }
+                if (currentPage >= totalPages - 2) { start = totalPages - 3; end = totalPages - 1; }
+                for (let i = start; i <= end; i++) pages.push(i);
+                if (currentPage < totalPages - 2) pages.push('...');
+                pages.push(totalPages);
+            }
+            let html = `<button class="prev-page" ${currentPage===1?'disabled':''}>‹ 上一页</button>`;
+            for (let p of pages) {
+                if (p === '...') {
+                    html += `<span class="page-dots" data-dots="true">...</span>`;
+                } else {
+                    html += `<span class="page-number ${p===currentPage?'active':''}" data-page="${p}">${p}</span>`;
+                }
+            }
+            html += `<button class="next-page" ${currentPage===totalPages?'disabled':''}>下一页 ›</button>`;
+            container.innerHTML = html;
+
+            container.querySelectorAll('.page-number').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const page = parseInt(btn.dataset.page);
+                    if (!isNaN(page) && page !== currentPage) onPageChange(page);
+                });
+            });
+            const prevBtn = container.querySelector('.prev-page');
+            const nextBtn = container.querySelector('.next-page');
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentPage > 1) onPageChange(currentPage - 1); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentPage < totalPages) onPageChange(currentPage + 1); });
+            container.querySelectorAll('.page-dots').forEach(dots => {
+                dots.addEventListener('click', () => {
+                    let input = prompt(`您要跳转到哪一页？（1-${totalPages}）`, currentPage);
+                    if (input !== null) {
+                        let page = parseInt(input);
+                        if (!isNaN(page) && page >= 1 && page <= totalPages) onPageChange(page);
+                        else alert(`请输入 1-${totalPages} 之间的数字`);
+                    }
+                });
+            });
+        }
+
+        // ---------- 简单表格渲染（用于教程、精灵等）----------
+        function renderSimpleTable(containerId, data, columns, pageSize = 10) {
+            let currentPage = 1;
+            let filteredData = [...data];
+
+            function render() {
+                const start = (currentPage - 1) * pageSize;
+                const pageData = filteredData.slice(start, start + pageSize);
+                const tbody = document.querySelector(`#${containerId} tbody`);
+                if (!tbody) return;
+                if (pageData.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="${columns.length}" class="empty-tip">没有匹配的内容</td></tr>`;
+                } else {
+                    tbody.innerHTML = pageData.map(row => {
+                        let cells = '';
+                        columns.forEach(col => {
+                            let value = row[col.key] || '-';
+                            if (col.type === 'video' && value && value !== '') {
+                                value = `<a href="${value}" target="_blank" style="color:#3B82F6;">🎬 视频</a>`;
+                            } else if (col.type === 'url' && value && value !== '') {
+                                value = `<a href="${value}" target="_blank" style="color:#3B82F6;">🔗 详情</a>`;
+                            }
+                            cells += `<td>${value}</td>`;
+                        });
+                        return `<tr>${cells}</tr>`;
+                    }).join('');
+                }
+                const totalPages = Math.ceil(filteredData.length / pageSize);
+                renderPaginationWithDots(`${containerId}-pagination`, currentPage, totalPages, (newPage) => {
+                    currentPage = newPage;
+                    render();
+                });
+            }
+
+            function filterData(query) {
+                if (!query) filteredData = [...data];
+                else filteredData = data.filter(row => {
+                    // 搜索对象的所有字段
+                    const q = query.toLowerCase();
+                    return Object.values(row).some(val => val && val.toString().toLowerCase().includes(q));
+                });
+                currentPage = 1;
+                render();
+            }
+
+            const container = document.getElementById(containerId);
+            if (container && !container.querySelector('.simple-search')) {
+                const searchHtml = `<div class="simple-search" style="margin-bottom:12px;"><input type="text" placeholder="搜索..." id="${containerId}-search" style="width:100%; padding:6px 12px; border:1px solid var(--border-color); border-radius:30px;"></div>`;
+                container.insertAdjacentHTML('afterbegin', searchHtml);
+                const searchBox = document.getElementById(`${containerId}-search`);
+                if (searchBox) searchBox.addEventListener('input', (e) => filterData(e.target.value));
+            }
+            render();
+        }
+
+        // ---------- 完整模组统计组件（支持自定义列）----------
+        class ModStatsView {
+            constructor(containerId, modsData, options = {}) {
+                this.containerId = containerId;
+                this.allMods = modsData;
+                this.filteredMods = [...modsData];
+                this.currentPage = 1;
+                this.pageSize = 15;
+                this.searchQuery = '';
+                this.statusFilter = '全部';
+                this.filterCollapsed = false;
+                // 自定义列配置（不传则使用僵毁默认列）
+                this.customColumns = options.columns || null;
+                this.simplified = options.simplified || false;
+                // 僵毁专用筛选器
+                if (!this.simplified) {
+                    this.noteFilter = 'all';
+                    this.chineseFilter = 'all';
+                }
+                this.videoFilter = 'all';
+                this.loaderFilter = '全部';
+                this.categoryFilter = '全部';
+                this.init();
+            }
+
+            init() { this.render(); }
+
+            getStatusClass(status) {
+                const map = { '完整':'status-complete', '非完整':'status-incomplete', '待检测':'status-pending', '无需翻译':'status-unneeded', '待处理':'status-todo' };
+                return map[status] || '';
+            }
+
+            getModLink(mod) {
+                if (this.customColumns) return '#';
+                if (mod.platform === 'steam' && mod.steamId) return `https://steamcommunity.com/sharedfiles/filedetails/?id=${mod.steamId}`;
+                return '#';
+            }
+
+            getDefaultColumns() {
+                return [
+                    { key: 'name', label: '模组名称 / ID', type: 'modName' },
+                    { key: 'chineseName', label: '模组中文名', type: 'text' },
+                    { key: 'status', label: '翻译进度', type: 'status' },
+                    { key: 'videoUrl', label: '视频教程', type: 'videoLink' },
+                    { key: 'note', label: '备注', type: 'text' },
+                    { key: 'category', label: '模组分类', type: 'text' },
+                    { key: 'postUrl', label: '模组私帖', type: 'link', linkText: '📝 私帖' }
+                ];
+            }
+
+            getColumns() { return this.customColumns || this.getDefaultColumns(); }
+
+            updateStats() {
+                const statsDiv = document.getElementById(`${this.containerId}-stats`);
+                if (!statsDiv) return;
+                const total = this.allMods.length;
+                const countComplete = this.allMods.filter(m => m.status === '完整').length;
+                const countIncomplete = this.allMods.filter(m => m.status === '非完整').length;
+                const countPending = this.allMods.filter(m => m.status === '待检测').length;
+                const countUnneeded = this.allMods.filter(m => m.status === '无需翻译').length;
+                const countTodo = this.allMods.filter(m => m.status === '待处理').length;
+                const countHasVideo = this.allMods.filter(m => m.videoUrl && m.videoUrl.trim() !== '' && m.videoUrl !== '视频待发布').length;
+                statsDiv.innerHTML = `
+                    <div class="stats-item"><span class="icon">📊</span> 总模组: <span class="stats-number">${total}</span></div>
+                    <div class="stats-item stats-complete"><span class="icon">✅</span> 完整: <span class="stats-number">${countComplete}</span></div>
+                    <div class="stats-item stats-todo"><span class="icon">⏳</span> 待处理: <span class="stats-number">${countTodo}</span></div>
+                    <div class="stats-item stats-pending"><span class="icon">🔍</span> 待检测: <span class="stats-number">${countPending}</span></div>
+                    <div class="stats-item stats-incomplete"><span class="icon">🟡</span> 非完整: <span class="stats-number">${countIncomplete}</span></div>
+                    <div class="stats-item stats-unneeded"><span class="icon">🟣</span> 无需翻译: <span class="stats-number">${countUnneeded}</span></div>
+                    <div class="stats-item"><span class="icon">📹</span> 已拥有视频: <span class="stats-number">${countHasVideo}</span></div>
+                `;
+            }
+
+            applyFilters() {
+                let filtered = [...this.allMods];
+                if (this.searchQuery.trim()) {
+                    const q = this.searchQuery.toLowerCase();
+                    filtered = filtered.filter(mod => {
+                        // 搜索所有字段（不仅是表格列）
+                        const searchFields = [
+                            mod.name, mod.chineseName, mod.note, mod.steamId,
+                            mod.mcmodId, mod.videoUrl, mod.category, mod.postUrl,
+                            mod.loaders, mod.platform, mod.mcmodUrl,
+                            mod.modrinthUrl, mod.curseforgeUrl
+                        ];
+                        return searchFields.some(val => val && val.toString().toLowerCase().includes(q));
+                    });
+                }
+                if (!this.simplified) {
+                    if (this.categoryFilter !== '全部') filtered = filtered.filter(mod => mod.category && mod.category.split('/').some(c => c.trim() === this.categoryFilter));
+                    if (this.noteFilter !== 'all') filtered = filtered.filter(mod => this.noteFilter === 'yes' ? (mod.note && mod.note.trim()) : (!mod.note || !mod.note.trim()));
+                    if (this.chineseFilter !== 'all') filtered = filtered.filter(mod => this.chineseFilter === 'yes' ? (mod.chineseName && mod.chineseName.trim()) : (!mod.chineseName || !mod.chineseName.trim()));
+                }
+                if (this.statusFilter !== '全部') filtered = filtered.filter(mod => mod.status === this.statusFilter);
+                if (this.videoFilter !== 'all') filtered = filtered.filter(mod => this.videoFilter === 'yes' ? (mod.videoUrl && mod.videoUrl.trim() !== '' && mod.videoUrl !== '视频待发布') : (!mod.videoUrl || mod.videoUrl.trim() === '' || mod.videoUrl === '视频待发布'));
+                if (this.loaderFilter !== '全部') filtered = filtered.filter(mod => mod.loaders && mod.loaders.includes(this.loaderFilter));
+                this.filteredMods = filtered;
+                this.currentPage = 1;
+                this.renderTable();
+                this.renderPagination();
+            }
+
+            renderTable() {
+                const tbody = document.getElementById(`${this.containerId}-tbody`);
+                if (!tbody) return;
+                const columns = this.getColumns();
+                const start = (this.currentPage - 1) * this.pageSize;
+                const pageMods = this.filteredMods.slice(start, start + this.pageSize);
+                if (pageMods.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="${columns.length}" style="text-align:center; padding:40px;">没有匹配的模组</td></tr>`;
+                    return;
+                }
+                let html = '';
+                pageMods.forEach(mod => {
+                    html += '<tr>';
+                    columns.forEach(col => {
+                        const val = mod[col.key];
+                        html += '<td>';
+                        switch (col.type) {
+                            case 'modName':
+                                const mLink = this.getModLink(mod);
+                                let idDisp = '';
+                                if (mod.steamId) idDisp = `<span class="mod-id">${mod.steamId}</span>`;
+                                else if (mod.id) idDisp = `<span class="mod-id">${mod.id}</span>`;
+                                html += `<a href="${mLink}" target="_blank">${escapeHtml(mod.name)}</a>${idDisp}`;
+                                break;
+                            case 'status':
+                                html += `<span class="status-badge ${this.getStatusClass(val)}">${escapeHtml(val || '-')}</span>`;
+                                break;
+                            case 'videoLink':
+                            case 'link':
+                                if (val && val.trim()) {
+                                    html += `<a href="${val}" target="_blank" style="color:#3B82F6;">${col.linkText || '🔗 链接'}</a>`;
+                                } else { html += '-'; }
+                                break;
+                            default:
+                                html += escapeHtml(val || '-');
+                        }
+                        html += '</td>';
+                    });
+                    html += '</tr>';
+                });
+                tbody.innerHTML = html;
+            }
+
+            renderPagination() {
+                const totalPages = Math.ceil(this.filteredMods.length / this.pageSize);
+                renderPaginationWithDots(`${this.containerId}-pagination`, this.currentPage, totalPages, (newPage) => {
+                    this.currentPage = newPage;
+                    this.renderTable();
+                    this.renderPagination();
+                });
+            }
+
+            render() {
+                const container = document.getElementById(this.containerId);
+                if (!container) return;
+                const columns = this.getColumns();
+                const headerHtml = columns.map(c => `<th>${c.label}</th>`).join('');
+
+                // 构建筛选区
+                let filterInner = '';
+                filterInner += `<div class="filter-group"><div class="filter-group-header" onclick="window.toggleGroup(this)"><span class="group-arrow">▶</span><span>翻译状态</span></div><div class="filter-group-options collapsed" id="${this.containerId}-statusFilterGroup"></div></div>`;
+                if (!this.simplified) {
+                    filterInner += `<div class="filter-group"><div class="filter-group-header" onclick="window.toggleGroup(this)"><span class="group-arrow">▶</span><span>模组分类</span></div><div class="filter-group-options collapsed" id="${this.containerId}-categoryFilterGroup"></div></div>`;
+                    filterInner += `<div class="filter-group"><div class="filter-group-header" onclick="window.toggleGroup(this)"><span class="group-arrow">▶</span><span>备注</span></div><div class="filter-group-options collapsed" id="${this.containerId}-noteFilterGroup"><span class="filter-btn active" data-group="note" data-value="all">全部</span><span class="filter-btn" data-group="note" data-value="yes">有备注</span><span class="filter-btn" data-group="note" data-value="no">无备注</span></div></div>`;
+                    filterInner += `<div class="filter-group"><div class="filter-group-header" onclick="window.toggleGroup(this)"><span class="group-arrow">▶</span><span>中文名</span></div><div class="filter-group-options collapsed" id="${this.containerId}-chineseFilterGroup"><span class="filter-btn active" data-group="chinese" data-value="all">全部</span><span class="filter-btn" data-group="chinese" data-value="yes">有中文名</span><span class="filter-btn" data-group="chinese" data-value="no">无中文名</span></div></div>`;
+                }
+                filterInner += `<div class="filter-group"><div class="filter-group-header" onclick="window.toggleGroup(this)"><span class="group-arrow">▶</span><span>视频教程</span></div><div class="filter-group-options collapsed" id="${this.containerId}-videoFilterGroup"><span class="filter-btn active" data-group="video" data-value="all">全部</span><span class="filter-btn" data-group="video" data-value="yes">有教程</span><span class="filter-btn" data-group="video" data-value="no">无教程</span></div></div>`;
+                if (this.simplified) {
+                    filterInner += `<div class="filter-group"><div class="filter-group-header" onclick="window.toggleGroup(this)"><span class="group-arrow">▶</span><span>兼容加载器</span></div><div class="filter-group-options collapsed" id="${this.containerId}-loaderFilterGroup"></div></div>`;
+                }
+
+                const placeholder = this.simplified ? '搜索模组名称、中文名或链接...' : '搜索模组名称、中文名、ID或备注...';
+                let html = `
+                    <div id="${this.containerId}-stats" class="stats-bar">加载统计中...</div>
+                    <div class="search-box"><input type="text" id="${this.containerId}-search" placeholder="${placeholder}"></div>
+                    <div class="filter-section">
+                        <div class="filter-header" id="${this.containerId}-filterToggle"><span><span>🔍</span> 高级筛选</span><span class="arrow">▼</span></div>
+                        <div class="filter-content" id="${this.containerId}-filterContent">${filterInner}</div>
+                    </div>
+                    <div class="table-responsive"><table class="mod-table"><thead><tr>${headerHtml}</tr></thead><tbody id="${this.containerId}-tbody"></tbody></table></div>
+                    <div class="pagination" id="${this.containerId}-pagination"></div>
+                `;
+                container.innerHTML = html;
+
+                // 折叠切换
+                const filterToggle = document.getElementById(`${this.containerId}-filterToggle`);
+                const filterContent = document.getElementById(`${this.containerId}-filterContent`);
+                if (filterToggle) {
+                    filterToggle.addEventListener('click', () => {
+                        this.filterCollapsed = !this.filterCollapsed;
+                        filterContent.classList.toggle('collapsed', this.filterCollapsed);
+                        filterToggle.classList.toggle('collapsed', this.filterCollapsed);
+                    });
+                }
+
+                // 翻译状态筛选
+                const statusSet = new Set();
+                this.allMods.forEach(mod => { if (mod.status) statusSet.add(mod.status); });
+                const statusList = ['全部', ...Array.from(statusSet).sort()];
+                const statusGroup = document.getElementById(`${this.containerId}-statusFilterGroup`);
+                if (statusGroup) {
+                    statusGroup.innerHTML = statusList.map(s => `<span class="filter-btn ${s==='全部'?'active':''}" data-group="status" data-value="${s}">${s}</span>`).join('');
+                    statusGroup.querySelectorAll('[data-group="status"]').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            statusGroup.querySelectorAll('[data-group="status"]').forEach(b=>b.classList.remove('active'));
+                            btn.classList.add('active');
+                            this.statusFilter = btn.dataset.value;
+                            this.applyFilters();
+                        });
+                    });
+                }
+
+                // 模组分类筛选（僵毁专用）
+                if (!this.simplified) {
+                    const catSet = new Set();
+                    this.allMods.forEach(mod => {
+                        if (mod.category) mod.category.split('/').forEach(c => { if (c.trim()) catSet.add(c.trim()); });
+                    });
+                    const catList = ['全部', ...Array.from(catSet).sort()];
+                    const catGroup = document.getElementById(`${this.containerId}-categoryFilterGroup`);
+                    if (catGroup) {
+                        catGroup.innerHTML = catList.map(c => `<span class="filter-btn ${c==='全部'?'active':''}" data-group="category" data-value="${c}">${c}</span>`).join('');
+                        catGroup.querySelectorAll('[data-group="category"]').forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                catGroup.querySelectorAll('[data-group="category"]').forEach(b=>b.classList.remove('active'));
+                                btn.classList.add('active');
+                                this.categoryFilter = btn.dataset.value;
+                                this.applyFilters();
+                            });
+                        });
+                    }
+                }
+
+                // 僵毁专用筛选器绑定
+                if (!this.simplified) {
+                    ['note','chinese'].forEach(group => {
+                        const g = document.getElementById(`${this.containerId}-${group}FilterGroup`);
+                        if (g) g.querySelectorAll(`[data-group="${group}"]`).forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                g.querySelectorAll(`[data-group="${group}"]`).forEach(b=>b.classList.remove('active'));
+                                btn.classList.add('active');
+                                this[group+'Filter'] = btn.dataset.value;
+                                this.applyFilters();
+                            });
+                        });
+                    });
+                }
+
+                // 视频筛选（通用）
+                const videoGroup = document.getElementById(`${this.containerId}-videoFilterGroup`);
+                if (videoGroup) {
+                    videoGroup.querySelectorAll('[data-group="video"]').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            videoGroup.querySelectorAll('[data-group="video"]').forEach(b=>b.classList.remove('active'));
+                            btn.classList.add('active');
+                            this.videoFilter = btn.dataset.value;
+                            this.applyFilters();
+                        });
+                    });
+                }
+
+                // 兼容加载器筛选（精简模式）
+                if (this.simplified) {
+                    const loaderSet = new Set();
+                    this.allMods.forEach(mod => {
+                        if (mod.loaders) mod.loaders.split('/').forEach(l => { if (l.trim()) loaderSet.add(l.trim()); });
+                    });
+                    const loaderList = ['全部', ...Array.from(loaderSet).sort()];
+                    const loaderGroup = document.getElementById(`${this.containerId}-loaderFilterGroup`);
+                    if (loaderGroup) {
+                        loaderGroup.innerHTML = loaderList.map(l => `<span class="filter-btn ${l==='全部'?'active':''}" data-group="loader" data-value="${l}">${l}</span>`).join('');
+                        loaderGroup.querySelectorAll('[data-group="loader"]').forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                loaderGroup.querySelectorAll('[data-group="loader"]').forEach(b=>b.classList.remove('active'));
+                                btn.classList.add('active');
+                                this.loaderFilter = btn.dataset.value;
+                                this.applyFilters();
+                            });
+                        });
+                    }
+                }
+
+                // 搜索框
+                const searchBox = document.getElementById(`${this.containerId}-search`);
+                if (searchBox) {
+                    searchBox.addEventListener('input', (e) => { this.searchQuery = e.target.value; this.applyFilters(); });
+                }
+                this.updateStats();
+                this.applyFilters();
+            }
+        }
+
+        // ---------- 游戏详情加载 ----------
+        async function loadGameDetail(game) {
+            const detailDiv = document.getElementById('detailContent');
+            detailDiv.innerHTML = '<div class="empty-tip">加载中...</div>';
+
+            if (game.id === 'pz') {
+                // 加载三个数据源
+                const [modsRes, guidesRes, modTutorialsRes] = await Promise.all([
+                    fetch('data/Project%20Zomboid/mods.json').catch(() => null),
+                    fetch('data/Project%20Zomboid/guides.json').catch(() => null),
+                    fetch('data/Project%20Zomboid/mod_tutorials.json').catch(() => null)
+                ]);
+                let mods = modsRes && modsRes.ok ? await modsRes.json() : [];
+                let guides = guidesRes && guidesRes.ok ? await guidesRes.json() : [];
+                let modTutorials = modTutorialsRes && modTutorialsRes.ok ? await modTutorialsRes.json() : [];
+
+                let html = `
+                    <details class="section-details">
+                        <summary>📦 模组信息统计 (${mods.length}个模组)</summary>
+                        <div class="section-content"><div id="pzModsStatsContainer"></div></div>
+                    </details>
+                    <details class="section-details">
+                        <summary>📖 自制僵尸毁灭工程教程 (${guides.length}个)</summary>
+                        <div class="section-content">
+                            <div id="pzGuidesTableContainer">
+                                <table class="mod-table" id="pzGuidesTable"><thead><tr><th>教程名称</th><th>链接</th></tr></thead><tbody></tbody></table>
+                                <div id="pzGuidesTable-pagination"></div>
+                            </div>
+                        </div>
+                    </details>
+                `;
+                if (modTutorials.length) {
+                    html += `
+                        <details class="section-details">
+                            <summary>🔧 僵尸毁灭工程模组教程合集 (${modTutorials.length}个)</summary>
+                            <div class="section-content">
+                                <div id="pzModTutorialsTableContainer">
+                                    <table class="mod-table" id="pzModTutorialsTable"><thead><tr><th>教程名称</th><th>链接</th></tr></thead><tbody></tbody></table>
+                                    <div id="pzModTutorialsTable-pagination"></div>
+                                </div>
+                            </div>
+                        </details>
+                    `;
+                }
+
+                detailDiv.innerHTML = html;
+                new ModStatsView('pzModsStatsContainer', mods);
+                const guideData = guides.map(g => ({ name: g.name, url: g.url }));
+                renderSimpleTable('pzGuidesTable', guideData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+                if (modTutorials.length) {
+                    const modTutorialData = modTutorials.map(t => ({ name: t.name, url: t.url }));
+                    renderSimpleTable('pzModTutorialsTable', modTutorialData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+                }
+            }
+            else if (game.id === 'luoke') {
+                // 洛克王国部分保持不变（省略，与之前一致）
+                const [wondersRes, tasksRes, activitiesRes, titlesRes, challengesRes, musicRes, otherRes] = await Promise.all([
+                    fetch('data/Roco%20Kingdom%20World/wonders.json').catch(() => null),
+                    fetch('data/Roco%20Kingdom%20World/tasks.json').catch(() => null),
+                    fetch('data/Roco%20Kingdom%20World/activities.json').catch(() => null),
+                    fetch('data/Roco%20Kingdom%20World/titles.json').catch(() => null),
+                    fetch('data/Roco%20Kingdom%20World/challenges.json').catch(() => null),
+                    fetch('data/Roco%20Kingdom%20World/music.json').catch(() => null),
+                    fetch('data/Roco%20Kingdom%20World/other.json').catch(() => null)
+                ]);
+                let wonders = wondersRes && wondersRes.ok ? await wondersRes.json() : [];
+                let tasks = tasksRes && tasksRes.ok ? await tasksRes.json() : [];
+                let activities = activitiesRes && activitiesRes.ok ? await activitiesRes.json() : [];
+                let titles = titlesRes && titlesRes.ok ? await titlesRes.json() : [];
+                let challenges = challengesRes && challengesRes.ok ? await challengesRes.json() : [];
+                let music = musicRes && musicRes.ok ? await musicRes.json() : [];
+                let other = otherRes && otherRes.ok ? await otherRes.json() : [];
+
+                let html = '';
+                if (wonders.length) html += `<details class="section-details"><summary>🐉 精灵图鉴 (${wonders.length}个)</summary><div class="section-content"><div id="luokeWondersTableContainer"><table class="mod-table" id="luokeWondersTable"><thead><tr><th>编号</th><th>精灵名称</th><th>备注</th><th>视频</th></tr></thead><tbody></tbody></table><div id="luokeWondersTable-pagination"></div></div></div></details>`;
+                if (tasks.length) html += `<details class="section-details"><summary>📜 任务攻略 (${tasks.length}个)</summary><div class="section-content"><div id="luokeTasksTableContainer"><table class="mod-table" id="luokeTasksTable"><thead><tr><th>任务名称</th><th>备注</th><th>视频</th></tr></thead><tbody></tbody></table><div id="luokeTasksTable-pagination"></div></div></div></details>`;
+                if (activities.length) html += `<details class="section-details"><summary>🎉 活动攻略 (${activities.length}个)</summary><div class="section-content"><div id="luokeActivitiesTableContainer"><table class="mod-table" id="luokeActivitiesTable"><thead><tr><th>活动名称</th><th>备注</th><th>视频</th></tr></thead><tbody></tbody></table><div id="luokeActivitiesTable-pagination"></div></div></div></details>`;
+                if (titles.length) html += `<details class="section-details"><summary>🏅 称号获取 (${titles.length}个)</summary><div class="section-content"><div id="luokeTitlesTableContainer"><table class="mod-table" id="luokeTitlesTable"><thead><tr><th>称号名称</th><th>备注</th><th>视频</th></tr></thead><tbody></tbody></table><div id="luokeTitlesTable-pagination"></div></div></div></details>`;
+                if (challenges.length) html += `<details class="section-details"><summary>🎪 露天挑战 (${challenges.length}个)</summary><div class="section-content"><div id="luokeChallengesTableContainer"><table class="mod-table" id="luokeChallengesTable"><thead><tr><th>挑战名称</th><th>备注</th><th>视频</th></tr></thead><tbody></tbody></table><div id="luokeChallengesTable-pagination"></div></div></div></details>`;
+                if (music.length) html += `<details class="section-details"><summary>🎵 音乐收集 (${music.length}个)</summary><div class="section-content"><div id="luokeMusicTableContainer"><table class="mod-table" id="luokeMusicTable"><thead><tr><th>编号</th><th>音乐名称</th><th>备注</th><th>视频</th></tr></thead><tbody></tbody></table><div id="luokeMusicTable-pagination"></div></div></div></details>`;
+                if (other.length) html += `<details class="section-details"><summary>📖 其他项目 (${other.length}个)</summary><div class="section-content"><div id="luokeOtherTableContainer"><table class="mod-table" id="luokeOtherTable"><thead><tr><th>项目名称</th><th>备注</th><th>视频</th></tr></thead><tbody></tbody></table><div id="luokeOtherTable-pagination"></div></div></div></details>`;
+
+                detailDiv.innerHTML = html || '<div class="empty-tip">暂无内容</div>';
+                if (wonders.length) renderSimpleTable('luokeWondersTable', wonders, [{ key: 'id', label: '编号' }, { key: 'name', label: '名称' }, { key: 'note', label: '备注' }, { key: 'video', type: 'video', label: '视频' }], 15);
+                if (tasks.length) renderSimpleTable('luokeTasksTable', tasks, [{ key: 'name', label: '任务名' }, { key: 'note', label: '备注' }, { key: 'video', type: 'video', label: '视频' }], 15);
+                if (activities.length) renderSimpleTable('luokeActivitiesTable', activities, [{ key: 'name', label: '活动名' }, { key: 'note', label: '备注' }, { key: 'video', type: 'video', label: '视频' }], 15);
+                if (titles.length) renderSimpleTable('luokeTitlesTable', titles, [{ key: 'name', label: '称号名' }, { key: 'note', label: '备注' }, { key: 'video', type: 'video', label: '视频' }], 15);
+                if (challenges.length) renderSimpleTable('luokeChallengesTable', challenges, [{ key: 'name', label: '挑战名' }, { key: 'note', label: '备注' }, { key: 'video', type: 'video', label: '视频' }], 15);
+                if (music.length) renderSimpleTable('luokeMusicTable', music, [{ key: 'id', label: '编号' }, { key: 'name', label: '音乐名' }, { key: 'note', label: '备注' }, { key: 'video', type: 'video', label: '视频' }], 15);
+                if (other.length) renderSimpleTable('luokeOtherTable', other, [{ key: 'name', label: '项目名' }, { key: 'note', label: '备注' }, { key: 'video', type: 'video', label: '视频' }], 15);
+            }
+            else if (game.id === 'whiteday') {
+                const [endingsRes, otherRes, ghostsRes, modelsRes] = await Promise.all([
+                    fetch('data/White%20Day%20A%20Labyrinth%20Named%20School/endings.json').catch(() => null),
+                    fetch('data/White%20Day%20A%20Labyrinth%20Named%20School/other.json').catch(() => null),
+                    fetch('data/White%20Day%20A%20Labyrinth%20Named%20School/ghosts.json').catch(() => null),
+                    fetch('data/White%20Day%20A%20Labyrinth%20Named%20School/models.json').catch(() => null)
+                ]);
+                let endings = endingsRes && endingsRes.ok ? await endingsRes.json() : [];
+                let other = otherRes && otherRes.ok ? await otherRes.json() : [];
+                let ghosts = ghostsRes && ghostsRes.ok ? await ghostsRes.json() : [];
+                let models = modelsRes && modelsRes.ok ? await modelsRes.json() : [];
+
+                let html = '';
+                if (endings.length) {
+                    html += `<details class="section-details"><summary>🎭 恐怖学校白色情人节结局收集 (${endings.length}个)</summary><div class="section-content"><div id="whitedayEndingsTableContainer"><table class="mod-table" id="whitedayEndingsTable"><thead><tr><th>攻略名称</th><th>链接</th></tr></thead><tbody></tbody></table><div id="whitedayEndingsTable-pagination"></div></div></div></details>`;
+                }
+                if (other.length) {
+                    html += `<details class="section-details"><summary>📖 其他项目 (${other.length}个)</summary><div class="section-content"><div id="whitedayOtherTableContainer"><table class="mod-table" id="whitedayOtherTable"><thead><tr><th>攻略名称</th><th>链接</th></tr></thead><tbody></tbody></table><div id="whitedayOtherTable-pagination"></div></div></div></details>`;
+                }
+                if (ghosts.length) {
+                    html += `<details class="section-details"><summary>👻 鬼魂收集 (${ghosts.length}个)</summary><div class="section-content"><div id="whitedayGhostsTableContainer"><table class="mod-table" id="whitedayGhostsTable"><thead><tr><th>攻略名称</th><th>链接</th></tr></thead><tbody></tbody></table><div id="whitedayGhostsTable-pagination"></div></div></div></details>`;
+                }
+                if (models.length) {
+                    html += `<details class="section-details"><summary>🗿 模型收集 (${models.length}个)</summary><div class="section-content"><div id="whitedayModelsTableContainer"><table class="mod-table" id="whitedayModelsTable"><thead><tr><th>攻略名称</th><th>链接</th></tr></thead><tbody></tbody></table><div id="whitedayModelsTable-pagination"></div></div></div></details>`;
+                }
+                detailDiv.innerHTML = html || '<div class="empty-tip">暂无内容</div>';
+
+                if (endings.length) {
+                    const endingsData = endings.map(g => ({ name: g.name, url: g.url }));
+                    renderSimpleTable('whitedayEndingsTable', endingsData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+                }
+                if (other.length) {
+                    const otherData = other.map(g => ({ name: g.name, url: g.url }));
+                    renderSimpleTable('whitedayOtherTable', otherData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+                }
+                if (ghosts.length) {
+                    const ghostsData = ghosts.map(g => ({ name: g.name, url: g.url }));
+                    renderSimpleTable('whitedayGhostsTable', ghostsData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+                }
+                if (models.length) {
+                    const modelsData = models.map(g => ({ name: g.name, url: g.url }));
+                    renderSimpleTable('whitedayModelsTable', modelsData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+                }
+            }
+            else if (game.id === 'minecraft') {
+                const modsRes = await fetch('data/Minecraft/mods.json').catch(() => null);
+                let mods = modsRes && modsRes.ok ? await modsRes.json() : [];
+                const MC_COLUMNS = [
+                    { key: 'name', label: '模组名称', type: 'text' },
+                    { key: 'chineseName', label: '模组中文名', type: 'text' },
+                    { key: 'status', label: '翻译进度', type: 'status' },
+                    { key: 'videoUrl', label: '视频教程', type: 'link', linkText: '🎬 观看' },
+                    { key: 'mcmodUrl', label: 'MC百科', type: 'link', linkText: '📖 百科' },
+                    { key: 'modrinthUrl', label: 'Modrinth', type: 'link', linkText: '🔗 Modrinth' },
+                    { key: 'curseforgeUrl', label: 'CurseForge', type: 'link', linkText: '🔗 CurseForge' },
+                    { key: 'loaders', label: '兼容加载器', type: 'text' }
+                ];
+                const html = `<details class="section-details"><summary>📦 模组信息统计 (${mods.length}个)</summary><div class="section-content"><div id="mcModsStatsContainer"></div></div></details>`;
+                detailDiv.innerHTML = html;
+                new ModStatsView('mcModsStatsContainer', mods, { columns: MC_COLUMNS, simplified: true });
+            }
+            else if (game.id === 'lifeisstrange') {
+                const guidesRes = await fetch('data/Life%20is%20Strange/guides.json').catch(() => null);
+                let guides = guidesRes && guidesRes.ok ? await guidesRes.json() : [];
+                const html = `<details class="section-details"><summary>📖 Life is Strange - Episode 1攻略 (${guides.length}个)</summary><div class="section-content"><div id="lifeisstrangeGuidesTableContainer"><table class="mod-table" id="lifeisstrangeGuidesTable"><thead><tr><th>攻略名称</th><th>链接</th></tr></thead><tbody></tbody></table><div id="lifeisstrangeGuidesTable-pagination"></div></div></div></details>`;
+                detailDiv.innerHTML = html;
+                const guideData = guides.map(g => ({ name: g.name, url: g.url }));
+                renderSimpleTable('lifeisstrangeGuidesTable', guideData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+            }
+            else if (game.id === 'jojo') {
+                const [guidesRes, otherRes] = await Promise.all([
+                    fetch('data/JOJO/guides.json').catch(() => null),
+                    fetch('data/JOJO/other.json').catch(() => null)
+                ]);
+                let guides = guidesRes && guidesRes.ok ? await guidesRes.json() : [];
+                let other = otherRes && otherRes.ok ? await otherRes.json() : [];
+
+                let html = '';
+                if (guides.length) {
+                    html += `<details class="section-details"><summary>⭐ JOJO群星之战攻略 (${guides.length}个)</summary><div class="section-content"><div id="jojoGuidesTableContainer"><table class="mod-table" id="jojoGuidesTable"><thead><tr><th>攻略名称</th><th>链接</th></tr></thead><tbody></tbody></table><div id="jojoGuidesTable-pagination"></div></div></div></details>`;
+                }
+                if (other.length) {
+                    html += `<details class="section-details"><summary>📖 其他项目 (${other.length}个)</summary><div class="section-content"><div id="jojoOtherTableContainer"><table class="mod-table" id="jojoOtherTable"><thead><tr><th>攻略名称</th><th>链接</th></tr></thead><tbody></tbody></table><div id="jojoOtherTable-pagination"></div></div></div></details>`;
+                }
+                detailDiv.innerHTML = html || '<div class="empty-tip">暂无内容</div>';
+
+                if (guides.length) {
+                    const guideData = guides.map(g => ({ name: g.name, url: g.url }));
+                    renderSimpleTable('jojoGuidesTable', guideData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+                }
+                if (other.length) {
+                    const otherData = other.map(g => ({ name: g.name, url: g.url }));
+                    renderSimpleTable('jojoOtherTable', otherData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+                }
+            }
+            else if (game.id === 'onlyyou') {
+                const endingsRes = await fetch('data/Only%20You/endings.json').catch(() => null);
+                let endings = endingsRes && endingsRes.ok ? await endingsRes.json() : [];
+                const html = `<details class="section-details"><summary>🎬 结局流程 (${endings.length}个)</summary><div class="section-content"><div id="onlyyouEndingsTableContainer"><table class="mod-table" id="onlyyouEndingsTable"><thead><tr><th>攻略名称</th><th>链接</th></tr></thead><tbody></tbody></table><div id="onlyyouEndingsTable-pagination"></div></div></div></details>`;
+                detailDiv.innerHTML = html;
+                const endingsData = endings.map(g => ({ name: g.name, url: g.url }));
+                renderSimpleTable('onlyyouEndingsTable', endingsData, [{ key: 'name', label: '名称' }, { key: 'url', type: 'url', label: '链接' }], 15);
+            }
+            else {
+                detailDiv.innerHTML = '<div class="empty-tip">暂无内容，后续补充~</div>';
+            }
+        }
+
+        // ---------- 游戏卡片列表 ----------
+        let gamesData = [];
+        let currentFilter = '';
+
+        async function loadGames() {
+            const grid = document.getElementById('gamesGrid');
+            try {
+                const res = await fetch('data/games.json');
+                if (!res.ok) throw new Error();
+                gamesData = await res.json();
+                renderGameCards();
+            } catch (err) {
+                grid.innerHTML = '<div style="text-align:center; padding:20px;">加载失败，请检查 data/games.json</div>';
+            }
+        }
+
+        function renderGameCards() {
+            const grid = document.getElementById('gamesGrid');
+            const filtered = gamesData.filter(g => 
+                currentFilter === '' || g.name.includes(currentFilter)
+            );
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="text-align:center; padding:20px;">没有找到相关游戏</div>';
+                return;
+            }
+            grid.innerHTML = filtered.map(g => `
+                <div class="project-card" data-id="${g.id}">
+                    <div class="project-icon">${g.icon || '🎮'}</div>
+                    <div class="project-title">${escapeHtml(g.name)}</div>
+                    <div class="project-desc">${escapeHtml(g.description)}</div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', async () => {
+                    const id = card.dataset.id;
+                    const game = gamesData.find(g => g.id === id);
+                    if (game) {
+                        document.getElementById('gamesGridView').style.display = 'none';
+                        document.getElementById('gameDetailView').style.display = 'block';
+                        await loadGameDetail(game);
+                    }
+                });
+            });
+        }
+
+        function backToGrid() {
+            document.getElementById('gamesGridView').style.display = 'block';
+            document.getElementById('gameDetailView').style.display = 'none';
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentFilter = e.target.value;
+            renderGameCards();
+        });
+        document.getElementById('backToGridBtn').addEventListener('click', backToGrid);
+
+        loadGames();
+    </script>
+</body>
+</html>

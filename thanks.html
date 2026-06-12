@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致谢 - 千白分享</title>
+    <style>
+        /* ========== 基础风格 ========== */
+        :root {
+            --sidebar-width: 260px;
+            --nav-offset: 60px;
+            --border-color: #000;
+            --bg-card: #fff;
+            --bg-sidebar: #fff;
+            --text-dark: #2a1a2e;
+            --text-mid: #5a3e4b;
+            --text-light: #bba3ad;
+            --shadow: 4px 4px 0 rgba(0,0,0,0.1);
+            --pink: #f9bddd;
+            --pink-dark: #c44569;
+            --pink-light: #ffcfe2;
+        }
+        @font-face {
+            font-family: 'ZQKNNY';
+            src: url('ZQKNNY-Medium-2.woff2') format('woff2');
+            font-weight: 500; font-style: normal; font-display: swap;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "MS PGothic", "Unifont", "SimSun", "Microsoft YaHei", "ZQKNNY", sans-serif;
+            background: url('images/beijin1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding-top: var(--nav-offset);
+            color: var(--text-dark);
+        }
+        /* 导航栏 */
+        nav {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            background: #fff;
+            border-bottom: 2px solid #000;
+        }
+        nav .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            padding: 8px 16px;
+            margin: 0;
+            gap: 12px;
+        }
+        nav .links li a {
+            display: inline-block;
+            padding: 8px 32px;
+            border-radius: 32px;
+            border: 1px solid #000;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+            transition: filter 0.2s;
+            cursor: pointer;
+        }
+        nav .links li a:hover { filter: brightness(0.85); }
+        /* 左侧栏 */
+        .left-col {
+            position: fixed;
+            left: 20px;
+            top: var(--nav-offset);
+            width: var(--sidebar-width);
+            z-index: 950;
+        }
+        .profile-card {
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .profile-avatar img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border-color);
+        }
+        .profile-name { font-size: 18px; font-weight: bold; text-align: center; }
+        .profile-signature { font-size: 11px; text-align: center; color: var(--text-mid); margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--border-color); }
+        /* 播放器 */
+        .player {
+            margin: 16px 0 12px;
+            text-align: center;
+        }
+        .vinyl {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 35% 35%, #222, #111);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px #444, 0 0 0 6px #888;
+        }
+        .vinyl.playing { animation: spin 5s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .vinyl-center-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.9);
+            object-fit: cover;
+            background: #fff;
+        }
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+        .player-controls button {
+            background: var(--pink-light);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .player-controls button:hover { background: var(--pink); }
+        .song-title {
+            font-size: 10px;
+            color: var(--text-mid);
+            text-align: center;
+            background: var(--bg-card);
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            display: inline-block;
+            max-width: 180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* 联系方式 */
+        .contact-info {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 12px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 12px;
+        }
+        .contact-info p { margin: 6px 0; }
+        .contact-info a { color: var(--pink-dark); text-decoration: none; }
+        .contact-info a:hover { text-decoration: underline; }
+        /* 右侧主区域 */
+        .right-col {
+            margin-left: calc(var(--sidebar-width) + 40px);
+            margin-right: 20px;
+            max-width: 1200px;
+        }
+        .page-header {
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .page-header h2 {
+            font-size: 24px;
+            display: inline-block;
+            background: var(--pink-light);
+            padding: 4px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+        }
+        .section-details {
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .section-details summary {
+            background: var(--pink-light);
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+        .section-details summary::-webkit-details-marker { display: none; }
+        .section-details summary::after {
+            content: '▼';
+            margin-left: auto;
+            transition: transform 0.2s;
+        }
+        .section-details[open] summary::after {
+            transform: rotate(180deg);
+        }
+        .section-content {
+            padding: 16px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+        }
+        .section-content ul { list-style: none; padding-left: 0; }
+        .section-content li { padding: 4px 0; font-size: 14px; }
+        .section-content a { color: var(--pink-dark); text-decoration: none; }
+        .section-content a:hover { text-decoration: underline; }
+        .thanks-note { margin-top: 12px; font-style: italic; color: var(--text-mid); font-size: 13px; }
+        @media (max-width: 800px) { .left-col { display: none; } .right-col { margin-left: 20px; } }
+        @media (max-width: 768px) { nav .links li a { padding: 6px 20px; font-size: 12px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="links">
+            <li><a href="index.html" style="background-color: #FF4D4D;">主页</a></li>
+            <li><a href="moments.html" style="background-color: #FFA500;">动态</a></li>
+            <li><a href="projects.html" style="background-color: #FFD700;">项目</a></li>
+            <li><a href="works.html" style="background-color: #32CD32;">作品集</a></li>
+            <li><a href="posts.html" style="background-color: #00CED1;">帖子</a></li>
+            <li><a href="thanks.html" style="background-color: #1E90FF;">致谢</a></li>
+            <li><a href="repo.html" style="background-color: #9370DB;">仓库</a></li>
+        </ul>
+    </nav>
+
+    <div class="left-col">
+        <div class="profile-card">
+            <div class="profile-avatar"><img src="images/lingsheqianbai.jpg" alt="凌社千白"></div>
+            <div class="profile-name">凌社千白</div>
+            <div class="profile-signature">分享 · 记录 · 创造</div>
+            <div class="player">
+                <div class="vinyl" id="vinylDisc"><img src="images/yonri.jpg" alt="友利奈绪" class="vinyl-center-img"></div>
+                <div class="player-controls">
+                    <button id="prevBtn">⏮</button>
+                    <button id="playPauseBtn">▶️</button>
+                    <button id="nextBtn">⏭</button>
+                </div>
+                <div class="song-title" id="songTitle">Morning BGM</div>
+            </div>
+            <div class="contact-info">
+                <p>📺 B站: <a href="https://space.bilibili.com/498508670?spm_id_from=333.1007.0.0" target="_blank">凌社千白</a></p>
+                <p>🎵 抖音: <a href="https://www.douyin.com/user/self/search/%E5%87%8C%E7%A4%BE%E5%8D%83%E7%99%BD?aid=1f8c5d62-63e5-44e7-b317-8c4aea394ea7&type=general" target="_blank">凌社千白</a></p>
+                <p>📱 快手: <a href="https://www.kuaishou.com/profile/3xcatpzc2ejba82" target="_blank">凌社千白</a></p>
+            </div>
+            <button class="theme-toggle" id="themeToggle" style="display: none;">🌙 黑夜</button>
+        </div>
+    </div>
+
+    <div class="right-col">
+        <div class="page-header"><h2>✨ 致谢</h2></div>
+
+        <details class="section-details">
+            <summary>🌐 网页贡献致谢</summary>
+            <div class="section-content"><ul><li><a href="https://www.deepseek.com/" target="_blank">DeepSeek</a> - AI 助手</li><li><a href="https://space.bilibili.com/3493078216215098" target="_blank">小狐务器</a> - B站主页</li></ul></div>
+        </details>
+        <details class="section-details">
+            <summary>🎨 灵感设计</summary>
+            <div class="section-content"><ul><li><a href="https://www.xnmoe.com/index.html" target="_blank">NNNullptr's Blog</a> - 网站设计风格参考，特别感谢！</li></ul></div>
+        </details>
+        <details class="section-details">
+            <summary>🧟 僵尸毁灭工程汉化致谢</summary>
+            <div class="section-content"><ul>
+                <li>老版汉化组成员：Sky_Orc_Mm, Misha, HennyFishYu, Jeff</li>
+                <li>新版汉化组成员：Alexa-Hong, AZ, Flying penguin, 格兰瑞敌击剑, HansKaffee, L'Etranger, Livia, moonlight-pz, 轻轻的晚风, RunAbout, Susan Admason, taoran, 天冷就要吃火锅, TwilightRain, 战场蒲公英, zlq4863947</li>
+                <li>电台内容汉化员：HenryFishYu, Jeff, HansKaffee, TwilightRain, moonlight-pz, Susan Admason, L'Etranger, 天冷就要吃火锅, 轻轻的晚风, 格兰瑞敌击剑, 湖畔镇一枝花, Livia, Flying Penguin, AZ, taoran, eva08maicy02</li>
+                <li>特別鳴謝：YD360, Douggy_Sans, BigSmoke, Washi, Yuanmo, mraz#9738, COSeeds</li>
+                <li>社区汉化：凌社千白, DeepSeek</li>
+            </ul>
+            <p class="thanks-note">注：是我制作的模组不指代其他人，因为这个网页本身是我建设汉化也是</p></div>
+        </details>
+        <details class="section-details">
+            <summary>📚 模组文件参考与灵感</summary>
+            <div class="section-content"><ul><li>[B42]汉化补充包（ID: 3388550747）</li><li>[B42]简体中文修复（ID: 3386522562）</li><li>[B42]统一·中文汉化（ID: 3556544454）</li><li>42传单汉化（ID: 3395823587）</li><li>[B42]出生点地图中文本地化（ID: 3401460152）</li><li>模组备注（ID: 3391537655）</li></ul></div>
+        </details>
+        <details class="section-details">
+            <summary>🔧 原版汉化模组搭建致谢</summary>
+            <div class="section-content"><ul>
+                <li><strong>模组备注</strong> ID: 3391537655 <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3391537655" target="_blank">[创意工坊]</a> 原作者 炎天amfysky</li>
+                <li><strong>B42汉化补充包</strong> ID: 3388550747 <a href="https://steamcommunity.com/workshop/filedetails/?id=3388550747" target="_blank">[创意工坊]</a> 原作者 炎天amfysky</li>
+                <li><strong>B42简体中文修复</strong> ID: 3386522562 <a href="https://steamcommunity.com/workshop/filedetails/?id=3386522562" target="_blank">[创意工坊]</a> 原作者 喵了个球</li>
+                <li><strong>42传单汉化</strong> ID: 3395823587 <a href="https://steamcommunity.com/workshop/filedetails/?id=3395823587" target="_blank">[创意工坊]</a> 原作者 Köngwaffle</li>
+                <li><strong>[B42]出生点地图中文本地化</strong> ID: 3401460152 <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3401460152" target="_blank">[创意工坊]</a> 原作者 SillageM</li>
+            </ul></div>
+        </details>
+    </div>
+
+    <audio id="audioPlayer" preload="auto"></audio>
+    <script>
+        const playlist = [
+            { title: "Morning BGM", url: "music/morning.mp3" },
+            { title: "Night BGM", url: "music/night.mp3" }
+        ];
+        let currentTrack = 0;
+        const audio = document.getElementById('audioPlayer');
+        const vinyl = document.getElementById('vinylDisc');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const songTitleSpan = document.getElementById('songTitle');
+
+        function loadTrack(index) {
+            const track = playlist[index % playlist.length];
+            audio.src = track.url;
+            songTitleSpan.textContent = track.title;
+            audio.load();
+            if (!audio.paused) {
+                audio.play().catch(()=>{});
+                vinyl.classList.add('playing');
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                playPauseBtn.textContent = '▶️';
+                vinyl.classList.remove('playing');
+            }
+        }
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => { vinyl.classList.add('playing'); playPauseBtn.textContent = '⏸️'; }).catch(()=>{});
+            } else {
+                audio.pause();
+                vinyl.classList.remove('playing');
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+        prevBtn.addEventListener('click', () => { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); });
+        nextBtn.addEventListener('click', () => { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); });
+        loadTrack(currentTrack);
+    </script>
+</body>
+</html>
