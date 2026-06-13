@@ -1,5 +1,14 @@
 [
   {
+    "id": "companion-dogs",
+    "title": "Companion Dogs - 同伴犬",
+    "date": "2026-06-14",
+    "summary": "收养流浪狗，喂食建立信任，跟随警戒并肩作战。Build 42.19，支持单人/联机/服务器。",
+    "content": "<p>收养一只流浪狗，喂食、建立信任，它将变成你真正的伙伴——跟随你、警戒身后、并肩作战。但养狗是一份责任，不是作弊工具。适用于 Build 42.19，支持单人、合作联机及专用服务器，可安全加入现有存档。</p><img src=\"images/Project%20Zomboid/3740052292/Companion%20Dogs%20icon.jpg\" alt=\"Companion Dogs icon\" style=\"max-width:100%;border-radius:8px;margin:8px 0;\"><h2>已知问题</h2><p>PZ 对模组动物存在限制：如果在存档中启用模组，狗可能出现变形、无纹理。<strong>解决方法</strong>：在主菜单模组列表中启用 Companion Dogs，然后完全退出游戏到桌面再重新加载存档（不是返回主菜单）。联机/多人模式中，房主也需在主菜单模组列表中启用（不仅仅是服务器/联机模组选择），并完全重启服务器。完整重启才能正确加载狗模型。这是动物模组的常见问题，无法从模组端自动修复。</p><h2>狗能做什么</h2><ul><li><strong>驯服流浪狗</strong>：喂食野狗建立信任（约 4 个零食即可拥有）。Caramelo 流浪狗常见于城镇；较稀有的德国牧羊犬出现在警察局和军事建筑附近。</li><li><strong>跟随 / 停留 / 守卫</strong>：三种模式。可通过按住 Q 键环形菜单（过来 / 跟随 / 停留 / 口哨 / 攻击）或右键菜单下达指令。</li><li><strong>与你乘车</strong>：上车时狗会跟随，处于安全状态，不会丢失在公路上。</li><li><strong>早期预警</strong>：狗能闻到你看不见的僵尸：远处威胁时低声咆哮，靠近时大声吠叫。三种警报模式（警报 / 谨慎 / 静音）在安全与隐蔽之间权衡。</li><li><strong>可生存的战斗</strong>：不是杀戮机器。Caramelo 会扑倒僵尸为你争取时间，而训练有素的德国牧羊犬可以独自击倒一只。狗会感到压力和恐慌，寡不敌众时会撤退。它们不会被僵尸或车辆杀死——只有被忽视（饥饿/口渴）才会真正死亡。</li><li><strong>需求与忠诚度</strong>：饥饿、口渴、压力和忠诚度都会衰减。忽视它会导致不服从；关心它则会恢复。抚摸它或睡在它旁边可以缓解你自己的无聊和悲伤。</li><li><strong>技能与基因</strong>：狗会获得经验（嗅觉、战斗、服从；狩猎和负重待定），并且天生具有个体特质基因。</li><li><strong>管理界面</strong>：清晰界面显示忠诚心、需求条、当前模式、技能及经验、先天特质，以及每个系统的悬浮提示。</li></ul><h2>每项好处都有代价</h2><ul><li>吠叫会警告你，也会吸引僵尸</li><li>压力过大或饥饿的狗会自行吠叫，引来尸群</li><li>狗能幸存于僵尸和车辆，但一只饥饿、被忽视的狗会真正死亡，无法重生</li><li>如果你不喂食和互动，忠诚度会下降</li></ul><h2>多人模式</h2><p>从头为多人模式构建——声音、动画、击倒和状态在客户端之间清晰复制。适用于合作联机（主机监听）和专用服务器。</p><h2>兼容性</h2><p>Build 42.19+，单人、合作联机及专用服务器。可安全加入现有存档。</p><h2>路线图（Beta）</h2><ul><li>更多品种、情绪图标、多狗管理、繁殖、负重狗、兽医护理、狩猎、艺术与音频优化</li></ul><h2>致谢</h2><ul><li>动画衍生自 Quaternius 的终极动画动物（CC0）</li><li>狗声音来自 BigSoundBank / Joseph Sardin（CC0）</li><li>自定义狗模型、骨骼和蒙皮由作者完成</li><li>简繁中文翻译由 duwenju1203 提供</li></ul><h2>资产使用</h2><p>本模组中的所有内容（模型、纹理、动画、声音和代码）仅供本模组使用。未经明确许可，请勿提取、重新打包、重新分发或在其他模组/项目中使用。</p>",
+    "image": "https://lingsheqianbai.github.io/lingsheqianbai.githubimages.io/images/Project%20Zomboid/3740052292/Companion%20Dogs%20icon.jpg",
+    "externalUrl": "https://lingsheqianbai.github.io/lingsheqianbai.githubimages.io/post.html?id=companion-dogs"
+  },
+  {
     "id": "fruit-tree-chop",
     "title": "Fruit Tree Chop - 砍树掉落果实",
     "date": "2026-06-13",
