@@ -548,7 +548,7 @@
                 <div class="post-card-cover" style="${coverStyle}"></div>
                 <div class="post-card-info">
                     <div class="post-card-title">${escapeHtml(post.title)}</div>
-                    <div class="post-card-meta">📅 ${post.date}</div>
+                    <div class="post-card-meta">📅 ${post.date}${post.updated ? ' · 🔄 ' + post.updated : ''}</div>
                     <div class="post-card-summary">${summary}</div>
                 </div>
             </div>`;

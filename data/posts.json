@@ -25,6 +25,16 @@
     "image": ""
   },
   {
+    "id": "mod-faq-guide",
+    "title": "模组私帖 · 常见问题说明",
+    "date": "2026-06-14",
+    "updated": "2026-06-14",
+    "summary": "关于模组私帖中常见问题AB角色的说明，以及帖子更新与反馈规则。",
+    "content": "<h2>常见问题中的 AB 角色</h2><p><strong>A</strong>：提问的人（有疑问的用户）</p><p><strong>B</strong>：回答的人（解答问题的用户或作者）</p><p>除 A 和 B 之外的其他人可以：提供新的资料、补充说明、反馈问题、建议修改等。</p><h2>帖子更新</h2><p>每个帖子都有<strong>发布日期</strong>和<strong>最后更新时间</strong>。当模组更新或出现新问题时，帖子会及时更新内容。更新时间显示在帖子卡片上，方便你判断信息是否新鲜。</p><h2>反馈方式</h2><ul><li>通过左侧联系方式（B站/抖音/快手）私信反馈</li><li>在对应帖子的常见问题区提出新问题</li><li>提供新的资料或截图，帮助完善帖子内容</li></ul><h2>帖子结构</h2><ul><li><strong>模组信息</strong>：名称、ID、分类等</li><li><strong>功能介绍</strong>：模组能做什么</li><li><strong>兼容性</strong>：支持的游戏版本</li><li><strong>常见问题</strong>：A（提问）B（回答）格式</li></ul>",
+    "image": "",
+    "externalUrl": ""
+  },
+  {
     "id": "Agent17",
     "title": "Agent17(特工17)攻略",
     "date": "2026-03-28",
