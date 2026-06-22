@@ -1,5 +1,14 @@
 [
   {
+    "id": "basements",
+    "title": "Basements - 地下室",
+    "date": "2026-06-17",
+    "summary": "可定制的地下室模组，3种尺寸，定制电板，超过152个地点。支持多人，B41/B42兼容。",
+    "image": "https://lingsheqianbai.github.io/lingsheqianbai.githubimages.io/images/Project%20Zomboid/2849247394/download.jpg",
+    "externalUrl": "https://lingsheqianbai.github.io/lingsheqianbai.githubimages.io/post.html?id=basements",
+    "content": "<img src=\"images/Project%20Zomboid/2849247394/download.jpg\" alt=\"Basements\" style=\"max-width:100%;border-radius:8px;margin:8px 0;\"><h2>模组简介</h2><p>本模组将可定制的地下室引入《僵尸毁灭工程》，提供三种尺寸，配备可供电的定制电板，全图分布超过 152 个地下室位置，需阅读对应杂志解锁建造权限。玩家可对地下室进行任意改造。</p><h2>完整功能</h2><ul><li><strong>3 种尺寸</strong>：小型（5x5）、中型（10x10）、大型（15x15）</li><li><strong>定制电板</strong>：支持装入/卸下汽车电池、开启/关闭电源</li><li><strong>超过 152 个地下室地点</strong></li><li><strong>解锁杂志</strong>：《地下室指南》第一卷（小型）、第二卷（中型）、第三卷（大型）</li><li><strong>建造材料</strong>：已阅读对应杂志 + 锤子 + 铲子 + 木板 + 钉子 + 铰链 + 门把手</li><li><strong>建造限制</strong>：仅限已有建筑内部（每栋建筑限 1 个），玩家自建建筑不算</li><li><strong>永久建造</strong>：一旦建造无法拆除或撤销</li><li><strong>自由改造</strong>：墙壁、地板、家具、照明、电力等</li><li><strong>电力系统</strong>：可使用城市电网或汽车电池供电</li><li><strong>舱门</strong>：3 种尺寸对应，右键进入/离开</li></ul><h2>重要提醒</h2><ul><li>版本兼容性：v1.0.2，通常兼容 B41；B42 需自行测试</li><li>多人模式：✅ 支持，需关闭反作弊类型 3（Anti-Cheat Type 3）</li><li>现有存档：❌ 不生效，需开新档</li><li>兼容性：应与其他模组完美兼容</li><li>版权：个人/服务器/模组包均可免费使用；未经许可不得重新分发</li></ul>"
+  },
+  {
     "id": "companion-dogs",
     "title": "Companion Dogs - 同伴犬",
     "date": "2026-06-14",
